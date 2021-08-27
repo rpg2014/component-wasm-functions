@@ -33,6 +33,11 @@ pub struct PredictiveResults{
     top_result: Prediction,
     result_list: Vec<Prediction>
 }
+#[wasm_bindgen]
+#[derive(Serialize, Deserialize,Debug)]
+pub enum Algorithm {
+    JaroWinkler
+}
 
 #[wasm_bindgen]
 // (name: &str) means the 'str' variable is a pointer
@@ -44,9 +49,12 @@ pub fn greet(name: &str) {
 
 
 #[wasm_bindgen]
-pub fn predictive_input(input: &str, list: JsValue) -> Result<JsValue, JsValue> {
+pub fn predictive_input(input: &str, list: JsValue, algorithm: Algorithm) -> Result<JsValue, JsValue> {
     let values: Vec<String> = serde_wasm_bindgen::from_value(list).unwrap();
-    let results = predictive_input_jaro_winkler(input, values)?;
+    let results = match algorithm {
+        Algorithm::JaroWinkler => predictive_input_jaro_winkler(input, values)?
+    } ;
+    // let results = predictive_input_jaro_winkler(input, values)?;
     return Ok(serde_wasm_bindgen::to_value(&results).unwrap())
 }
 

@@ -200,12 +200,13 @@ export function greet(name) {
 /**
 * @param {string} input
 * @param {any} list
+* @param {number} algorithm
 * @returns {any}
 */
-export function predictive_input(input, list) {
+export function predictive_input(input, list, algorithm) {
     var ptr0 = passStringToWasm0(input, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     var len0 = WASM_VECTOR_LEN;
-    var ret = wasm.predictive_input(ptr0, len0, addHeapObject(list));
+    var ret = wasm.predictive_input(ptr0, len0, addHeapObject(list), algorithm);
     return takeObject(ret);
 }
 
@@ -216,6 +217,9 @@ function handleError(f, args) {
         wasm.__wbindgen_exn_store(addHeapObject(e));
     }
 }
+/**
+*/
+export const Algorithm = Object.freeze({ JaroWinkler:0,"0":"JaroWinkler", });
 /**
 */
 export class Prediction {
