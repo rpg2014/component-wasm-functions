@@ -1,0 +1,18 @@
+{
+  "name": "component-wasm-functions",
+  "collaborators": [
+    "rpg2014 <rpg2014@users.noreply.github.com>"
+  ],
+  "scripts": {
+    "clean_package_json": "del 'pkg\\package.json'",
+    "copy_package_json": "npm run clean_package_json && copyfiles package.json pkg/package.json"
+  },
+  "version": "0.1.0",
+  "files": [
+    "pkg"
+  ],
+  "sideEffects": false,
+  "devDependencies": {
+    "copyfiles": "^2.4.1"
+  }
+}
