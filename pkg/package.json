@@ -1,0 +1,16 @@
+{
+  "name": "component-wasm-functions",
+  "collaborators": [
+    "rpg2014 <rpg2014@users.noreply.github.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "component_wasm_functions_bg.wasm",
+    "component_wasm_functions.js",
+    "component_wasm_functions.d.ts",
+    "component_wasm_functions_bg.js"
+  ],
+  "module": "component_wasm_functions.js",
+  "types": "component_wasm_functions.d.ts",
+  "sideEffects": false
+}

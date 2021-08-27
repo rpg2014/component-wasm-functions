@@ -10,3 +10,13 @@ export function greet(name: string): void;
 * @returns {any}
 */
 export function predictive_input(input: string, list: any): any;
+/**
+*/
+export class Prediction {
+  free(): void;
+}
+/**
+*/
+export class PredictiveResults {
+  free(): void;
+}

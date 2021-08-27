@@ -216,6 +216,38 @@ function handleError(f, args) {
         wasm.__wbindgen_exn_store(addHeapObject(e));
     }
 }
+/**
+*/
+export class Prediction {
+
+    __destroy_into_raw() {
+        const ptr = this.ptr;
+        this.ptr = 0;
+
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_prediction_free(ptr);
+    }
+}
+/**
+*/
+export class PredictiveResults {
+
+    __destroy_into_raw() {
+        const ptr = this.ptr;
+        this.ptr = 0;
+
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_predictiveresults_free(ptr);
+    }
+}
 
 export function __wbindgen_object_drop_ref(arg0) {
     takeObject(arg0);

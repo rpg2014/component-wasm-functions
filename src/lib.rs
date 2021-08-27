@@ -20,13 +20,14 @@ extern {
     fn alert(s: &str);
 }
 
-
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize,Debug, Clone)]
 pub struct Prediction {
     score: f64,
     text: String,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize,Debug)]
 pub struct PredictiveResults{
     top_result: Prediction,
