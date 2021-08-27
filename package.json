@@ -9,8 +9,12 @@
   },
   "version": "0.1.0",
   "files": [
-    "pkg"
+    "pkg/component_wasm_functions_bg.wasm",
+    "pkg/component_wasm_functions.js",
+    "pkg/component_wasm_functions.d.ts"
   ],
+  "module": "pkg/component_wasm_functions.js",
+  "types": "pkg/component_wasm_functions.d.ts",
   "sideEffects": false,
   "devDependencies": {
     "copyfiles": "^2.4.1"
