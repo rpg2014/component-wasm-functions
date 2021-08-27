@@ -11,7 +11,8 @@
   "files": [
     "pkg/component_wasm_functions_bg.wasm",
     "pkg/component_wasm_functions.js",
-    "pkg/component_wasm_functions.d.ts"
+    "pkg/component_wasm_functions.d.ts",
+    "pkg/component_wasm_functions_bg.js"
   ],
   "module": "pkg/component_wasm_functions.js",
   "types": "pkg/component_wasm_functions.d.ts",
