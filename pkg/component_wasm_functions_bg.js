@@ -189,15 +189,6 @@ function debugString(val) {
     return className;
 }
 /**
-* @param {string} name
-*/
-export function greet(name) {
-    var ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    var len0 = WASM_VECTOR_LEN;
-    wasm.greet(ptr0, len0);
-}
-
-/**
 * @param {string} input
 * @param {any} list
 * @param {number} algorithm
@@ -219,7 +210,7 @@ function handleError(f, args) {
 }
 /**
 */
-export const Algorithm = Object.freeze({ JaroWinkler:0,"0":"JaroWinkler", });
+export const AlgorithmTypes = Object.freeze({ JaroWinkler:0,"0":"JaroWinkler",DatFastShit:1,"1":"DatFastShit", });
 /**
 */
 export class Prediction {
@@ -234,6 +225,19 @@ export class Prediction {
     free() {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_prediction_free(ptr);
+    }
+    /**
+    * @returns {number}
+    */
+    get score() {
+        var ret = wasm.__wbg_get_prediction_score(this.ptr);
+        return ret;
+    }
+    /**
+    * @param {number} arg0
+    */
+    set score(arg0) {
+        wasm.__wbg_set_prediction_score(this.ptr, arg0);
     }
 }
 /**
@@ -255,10 +259,6 @@ export class PredictiveResults {
 
 export function __wbindgen_object_drop_ref(arg0) {
     takeObject(arg0);
-};
-
-export function __wbg_alert_bb0158ff0dc94be2(arg0, arg1) {
-    alert(getStringFromWasm0(arg0, arg1));
 };
 
 export function __wbindgen_string_new(arg0, arg1) {

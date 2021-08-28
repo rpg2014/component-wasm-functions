@@ -1,10 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-* @param {string} name
-*/
-export function greet(name: string): void;
-/**
 * @param {string} input
 * @param {any} list
 * @param {number} algorithm
@@ -13,13 +9,18 @@ export function greet(name: string): void;
 export function predictive_input(input: string, list: any, algorithm: number): any;
 /**
 */
-export enum Algorithm {
+export enum AlgorithmTypes {
   JaroWinkler,
+  DatFastShit,
 }
 /**
 */
 export class Prediction {
   free(): void;
+/**
+* @returns {number}
+*/
+  score: number;
 }
 /**
 */

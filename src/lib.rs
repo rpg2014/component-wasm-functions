@@ -1,13 +1,17 @@
 mod utils;
+mod algorithms;
+mod types;
 
 extern crate strsim;
 
-use strsim::jaro_winkler;
+
+
 use wasm_bindgen::prelude::*;
-use serde::{Serialize, Deserialize};
-use serde_wasm_bindgen::{to_value};
+use serde_wasm_bindgen;
 use wasm_bindgen::JsValue;
-use std::error::Error;
+use algorithms::jaro_winkler::predictive_input_jaro_winkler;
+use types::predictive_response::PredictiveResults;
+use types::algorithm_types::AlgorithmTypes;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -20,67 +24,18 @@ extern {
     fn alert(s: &str);
 }
 
-#[wasm_bindgen]
-#[derive(Serialize, Deserialize,Debug, Clone)]
-pub struct Prediction {
-    score: f64,
-    text: String,
-}
 
-#[wasm_bindgen]
-#[derive(Serialize, Deserialize,Debug)]
-pub struct PredictiveResults{
-    top_result: Prediction,
-    result_list: Vec<Prediction>
-}
-#[wasm_bindgen]
-#[derive(Serialize, Deserialize,Debug)]
-pub enum Algorithm {
-    JaroWinkler
-}
-
-#[wasm_bindgen]
-// (name: &str) means the 'str' variable is a pointer
-pub fn greet(name: &str) {
-    alert(&*("Hello, component-wasm-functions!".to_owned() + name));
-}
 
 
 
 
 #[wasm_bindgen]
-pub fn predictive_input(input: &str, list: JsValue, algorithm: Algorithm) -> Result<JsValue, JsValue> {
+pub fn predictive_input(input: &str, list: JsValue, algorithm: AlgorithmTypes) -> Result<JsValue, JsValue> {
     let values: Vec<String> = serde_wasm_bindgen::from_value(list).unwrap();
     let results = match algorithm {
-        Algorithm::JaroWinkler => predictive_input_jaro_winkler(input, values)?
+        AlgorithmTypes::JaroWinkler => predictive_input_jaro_winkler(input, values)?,
+        _ => PredictiveResults::empty()
     } ;
-    // let results = predictive_input_jaro_winkler(input, values)?;
     return Ok(serde_wasm_bindgen::to_value(&results).unwrap())
 }
 
-pub fn predictive_input_jaro_winkler( input: &str, list: Vec<String>) -> Result<PredictiveResults, &str> {
-    if list.is_empty() || input.is_empty() {
-        return Err("Neither input can be empty");
-    }
-    let mut top_result: Prediction = Prediction {
-        text: list.get(0).unwrap().to_owned(),
-        score: 0.0f64
-    };
-    let mut result_list: Vec<Prediction> = Vec::new();
-    for value in list {
-        let score = jaro_winkler(input, &value);
-        let prediction = Prediction {
-            score,
-            text: value
-        };
-        result_list.push(prediction.clone());
-        if top_result.score < score {
-            top_result = prediction;
-        }
-    }
-    result_list.sort_by(| a, b| b.score.partial_cmp(&a.score).unwrap());
-    Ok(PredictiveResults {
-        top_result,
-        result_list
-    })
-}
